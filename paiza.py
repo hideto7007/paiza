@@ -17,6 +17,7 @@ def padding_zero(num, val_dict):
             
     return summit_list
 
+
 def converting_from_color_to_number(color_dict, color):
     data = copy.deepcopy(color_dict)
     
@@ -60,8 +61,6 @@ class Color:
 
         
     def color_end_point(self):
-        
-        idx = 0
         
         self.data_list[self.y][self.x] = 3
         
@@ -112,41 +111,11 @@ class Color:
 
 
 if __name__ == "__main__":
-    # h, w = map(int, input().split())
-    # color_dict = {}
-    # for i in range(1, h+1):
-    #     color_dict[i] = list(str(input()))
-    
-    h, w = 5, 5
-    
-    color_dict = {
-        1: ['R', 'R', 'R', 'G', 'G'],
-        2: ['R', 'R', 'R', 'G', 'G'],
-        3: ['B', 'B', 'B', 'B', 'B'],
-        4: ['R', 'R', 'G', 'G', 'G'],
-        5: ['G', 'R', 'G', 'G', 'G']
-    }
-    
-    # h, w = 3, 2
-    
-    # color_dict = {
-    #     1: ['R', 'G'],
-    #     2: ['G', 'B'],
-    #     3: ['B', 'R']
-    # }
+    h, w = map(int, input().split())
+    color_dict = {}
+    for i in range(1, h+1):
+        color_dict[i] = list(str(input()))
 
-    # h, w = 7, 1
-    
-    # color_dict = {
-    #     1: ['R'],
-    #     2: ['G'],
-    #     3: ['B'],
-    #     4: ['G'],
-    #     5: ['B'],
-    #     6: ['B'],
-    #     7: ['B']
-    # }
-    
     color = ['R', 'G', 'B']
     
     result = {'R': 0, 'G': 0, 'B': 0}
