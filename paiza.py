@@ -1,14 +1,17 @@
 import copy
 
-def padding_zero(num, val_dict):
+def padding_zero(h, w, val_dict):
     val_dict_copy = copy.deepcopy(val_dict)
     summit_list = []
-    dummy = [9 for _ in range(num + 2)]
+    if h < w:
+        dummy = [9 for _ in range(w + 2)]
+    else:
+        dummy = [9 for _ in range(h + 2)]
     
-    for i in range(num + 2):
+    for i in range(h + 2):
         if i == 0:
             summit_list.append(dummy)
-        elif i == num + 1:
+        elif i == h + 1:
             summit_list.append(dummy)
         else:
             val_dict_copy[i].insert(0, 9)
@@ -16,7 +19,6 @@ def padding_zero(num, val_dict):
             summit_list.append(val_dict_copy[i])
             
     return summit_list
-
 
 def converting_from_color_to_number(color_dict, color):
     data = copy.deepcopy(color_dict)
@@ -91,20 +93,27 @@ class Color:
             
         self.result_dict[self.color] += 1
         
+    def linear_search(self, target, data_list):
+        for index, value in enumerate(data_list):
+            if value == target:
+                return index  # 要素が見つかった場所（インデックス）を返す
+        return -1  # 要素が見つからなかった場合
+        
                     
     def target_color(self, data_count):
         count = 0
         while True:
-            if self.target_data_confirmation_recursively(self.data_list)[count] == self.target:
+            index = self.linear_search(self.target, self.target_data_confirmation_recursively(self.data_list))
+            if self.target_data_confirmation_recursively(self.data_list)[index] == self.target:
                 self.color_search_start_point()
                 self.color_end_point()
-                count = 0
+                count += index
                 self.y = 0
                 self.x = 0
                 
             count += 1
             
-            if count == data_count:
+            if count > data_count:
                 break
             
         return self.result_dict[self.color]
@@ -125,7 +134,7 @@ if __name__ == "__main__":
     for c in color:
         con_from_color_to_num_dict = converting_from_color_to_number(color_dict, c)
         
-        color_list = padding_zero(h, con_from_color_to_num_dict)
+        color_list = padding_zero(h, w, con_from_color_to_num_dict)
         
         color = Color(color_list, h, w, c)
         result[c] = color.target_color(all_count)
